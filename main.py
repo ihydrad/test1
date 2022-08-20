@@ -19,22 +19,22 @@ expected = {
     'c': {'c1': {}},
 }
 
-def get_parants(data: list) -> dict:
+def get_parents(data: list) -> dict:
     tree = dict()
-    for parant, child in data:
-        if parant is None:
+    for parent, child in data:
+        if parent is None:
             tree[child] = dict()
     return tree
 
 def get_childs_for(parents: dict, data: list) -> dict:
-    for parant, child in data:
-        if parant in parents.keys():
-            parents[parant][child] = dict()
+    for parent, child in data:
+        if parent in parents.keys():
+            parents[parent][child] = dict()
     for key in parents.keys():
         get_childs_for(parents[key], data)
     return parents
 
 def to_tree(data_in: list) -> dict:
-    return get_childs_for(get_parants(data_in), data_in)
+    return get_childs_for(get_parents(data_in), data_in)
 
 assert to_tree(source) == expected
